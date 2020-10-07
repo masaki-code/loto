@@ -25,8 +25,8 @@ y_train = train[:, 2:]
 # ---------------------
 test_path = '../file/test_mini.csv'
 test = np.genfromtxt(test_path, delimiter=',')
-x_test = train[:, 0]
-y_test = train[:, 2:]
+x_test = test[:, 0]
+y_test = test[:, 2:]
 
 # ---------------------
 # モデル
@@ -43,7 +43,7 @@ model.add(Dense(6, activation='relu', input_shape=(input_num,)))
 model.add(Dropout(0.2))
 model.add(Dense(6, activation='relu'))
 model.add(Dropout(0.2))
-model.add(Dense(output_num, activation='softmax'))
+model.add(Dense(output_num))
 model.summary()
 
 model.compile(loss='categorical_crossentropy',
@@ -75,4 +75,5 @@ model.save('loto_model_mini.h5')
 # ---------------------
 x = [1501]
 result = model.predict(x, batch_size=None, verbose=0, steps=None)
+result = result[0]
 print(result)
