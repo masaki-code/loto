@@ -15,8 +15,8 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ファイル読み込み
-train_path = '../file/train_mini.csv'
-test_path = '../file/test_mini.csv'
+train_path = '../file/train_big.csv'
+test_path = '../file/test_big.csv'
 train = np.genfromtxt(train_path, delimiter=',', dtype='int')
 test = np.genfromtxt(test_path, delimiter=',', dtype='int')
 
@@ -61,8 +61,12 @@ y_test = vector_y(y_test)
 
 # 以下で103パラメータなので、ちょうどいいくらい。
 model = Sequential()
-model.add(Dense(6, activation='relu', input_shape=(input_num,)))
-model.add(Dense(6, activation='relu'))
+model.add(Dense(6, activation='tanh', input_shape=(input_num,)))
+# model.add(Dense(6, activation='relu', input_shape=(input_num,)))
+# model.add(Dropout(0.2))
+# model.add(Dense(6, activation='relu'))
+# model.add(Dropout(0.2))
+# model.add(Dense(output_num, activation='softmax'))
 model.add(Dense(output_num, activation='softmax'))
 model.summary()
 
@@ -70,12 +74,11 @@ model.compile(loss='categorical_crossentropy',
               optimizer=RMSprop(),
               metrics=['accuracy'])
 
-exit()
 # ---------------------
 # 訓練
 # ---------------------
 batch_size = 128
-epochs = 5
+epochs = 20
 
 history = model.fit(x_train, y_train,
                     batch_size=batch_size,
@@ -94,7 +97,55 @@ model.save('loto_model_big.h5')
 # ---------------------
 # 予測
 # ---------------------
-x = [1501]
+x = [251]
 result = model.predict(x, batch_size=None, verbose=0, steps=None)
 result = result[0]
-print(result)
+print('==================')
+print('result', result)
+print('==================')
+
+
+def trim(x):
+    if x < 0.05:
+        return 0
+    else:
+        return 1
+
+
+trim_ret = list(map(trim, result))
+print('==================')
+print('trim', trim_ret)
+print('==================')
+
+
+def discs(x):
+    k = 0
+    _disc = {}
+    for v in x:
+        k += 1
+        _disc[k] = v
+
+    return _disc
+
+
+discs_ret = discs(result)
+print('==================')
+print('discs', discs_ret)
+print('==================')
+
+
+def sort(x):
+    return sorted(x.items(), key=lambda __x: __x[1], reverse=True)
+
+
+sort_ret = sort(discs_ret)
+print('==================')
+print('sort', sort_ret)
+print('==================')
+
+
+y = sort_ret[::6]
+print (y)
+
+y = list(map(lambda x: x[0], y))
+print (y)
