@@ -1,14 +1,8 @@
-import keras
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.optimizers import RMSprop
-from keras.layers.core import Activation
-
-from keras.utils import np_utils
-
 import numpy as np
-
-import tensorflow as tf
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import RMSprop
+from keras.utils import np_utils
 
 import os
 
@@ -57,16 +51,11 @@ y_test = vector_y(y_test)
 # ---------------------
 # 総データ数：約1,500
 # 訓練データ：1,000、テストデータ：500、くらいに分けてみる
-# バーニーおじさんのルールにより、パラメータ数は100くらいで
+# バーニーおじさんのルールにより、パラメータ数は100くらいが理想？
 
-# 以下で103パラメータなので、ちょうどいいくらい。
+# 結果の次元が43あるのでパラメータ数を適切にするには難しそう。モデルを見直した方が良い？
 model = Sequential()
 model.add(Dense(6, activation='tanh', input_shape=(input_num,)))
-# model.add(Dense(6, activation='relu', input_shape=(input_num,)))
-# model.add(Dropout(0.2))
-# model.add(Dense(6, activation='relu'))
-# model.add(Dropout(0.2))
-# model.add(Dense(output_num, activation='softmax'))
 model.add(Dense(output_num, activation='softmax'))
 model.summary()
 
@@ -105,47 +94,17 @@ print('result', result)
 print('==================')
 
 
-def trim(x):
-    if x < 0.05:
-        return 0
-    else:
-        return 1
-
-
-trim_ret = list(map(trim, result))
-print('==================')
-print('trim', trim_ret)
-print('==================')
-
-
-def discs(x):
+def predict_nums(_x):
     k = 0
     _disc = {}
-    for v in x:
+    for v in _x:
         k += 1
         _disc[k] = v
 
-    return _disc
+    _sorted = sorted(_disc.items(), key=lambda __x: __x[1], reverse=True)
+    return sorted(list(map(lambda _x: _x[0], _sorted[::6])))
 
 
-discs_ret = discs(result)
 print('==================')
-print('discs', discs_ret)
+print(predict_nums(result))
 print('==================')
-
-
-def sort(x):
-    return sorted(x.items(), key=lambda __x: __x[1], reverse=True)
-
-
-sort_ret = sort(discs_ret)
-print('==================')
-print('sort', sort_ret)
-print('==================')
-
-
-y = sort_ret[::6]
-print (y)
-
-y = list(map(lambda x: x[0], y))
-print (y)
