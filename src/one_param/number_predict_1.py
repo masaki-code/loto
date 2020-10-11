@@ -13,8 +13,8 @@ import numpy as np
 import tensorflow as tf
 
 # ファイル読み込み
-train_path = '../file/train_big.csv'
-test_path = '../file/test_big.csv'
+train_path = '../../file/train_big.csv'
+test_path = '../../file/test_big.csv'
 
 # ---------------------
 # 訓練用データ

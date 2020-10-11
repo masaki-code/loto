@@ -40,10 +40,17 @@ def predict_nums(_x):
         k += 1
         _disc[k] = v
 
-    _sorted = sorted(_disc.items(), key=lambda __x: __x[1], reverse=True)
-    return sorted(list(map(lambda _x: _x[0], _sorted[::6])))
+    _result = sorted(_disc.items(), key=lambda __x: __x[1], reverse=True)
+    _result = list(map(lambda _x: _x[0], _result))
+    _result = _result[0:6]
+    _result = sorted(_result)
+    return _result
 
 
 print('_________________________________________________________________')
 print(test, '::', predict_nums(result))
 print('_________________________________________________________________')
+
+# for n in range(200):
+#     result = model.predict([n], batch_size=None, verbose=0, steps=None)
+#     print(n, '::', predict_nums(result[0]))

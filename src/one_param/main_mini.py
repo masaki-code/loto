@@ -12,7 +12,7 @@ import numpy as np
 # 訓練用データ
 # ---------------------
 # ファイル読み込み
-train_path = '../file/train_mini.csv'
+train_path = '../../file/train_mini.csv'
 train = np.genfromtxt(train_path, delimiter=',')
 
 # inputパラメータ：1パラメータ
@@ -23,7 +23,7 @@ y_train = train[:, 2:]
 # ---------------------
 # テスト（検証）用データ
 # ---------------------
-test_path = '../file/test_mini.csv'
+test_path = '../../file/test_mini.csv'
 test = np.genfromtxt(test_path, delimiter=',')
 x_test = test[:, 0]
 y_test = test[:, 2:]

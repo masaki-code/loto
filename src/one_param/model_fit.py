@@ -9,8 +9,8 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ファイル読み込み
-train_path = '../file/train_big.csv'
-test_path = '../file/test_big.csv'
+train_path = '../../file/train_big.csv'
+test_path = '../../file/test_big.csv'
 train = np.genfromtxt(train_path, delimiter=',', dtype='int')
 test = np.genfromtxt(test_path, delimiter=',', dtype='int')
 
@@ -56,6 +56,9 @@ y_test = vector_y(y_test)
 # 結果の次元が43あるのでパラメータ数を適切にするには難しそう。モデルを見直した方が良い？
 model = Sequential()
 model.add(Dense(6, activation='tanh', input_shape=(input_num,)))
+# model.add(Dense(6, activation='relu', input_shape=(input_num,)))
+# model.add(Dense(10, activation='selu', input_shape=(input_num,)))
+# model.add(Dense(10, activation='selu'))
 model.add(Dense(output_num, activation='softmax'))
 model.summary()
 

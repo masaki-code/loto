@@ -9,8 +9,8 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # ファイル読み込み
-train_path = '../file/train_big.csv'
-test_path = '../file/test_big.csv'
+train_path = '../../file/train_big.csv'
+test_path = '../../file/test_big.csv'
 train = np.genfromtxt(train_path, delimiter=',', dtype='int')
 test = np.genfromtxt(test_path, delimiter=',', dtype='int')
 
