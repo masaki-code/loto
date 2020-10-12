@@ -1,13 +1,20 @@
 import numpy as np
+import sys
 from keras.utils import np_utils
 
 input_num = 43
 output_num = 43
 
 
+def test_params(default):
+    if len(sys.argv) < 7:
+        return default
+    else:
+        return list(map(lambda x: int(x), sys.argv[1:7]))
+
+
 def vector(_x, num=output_num):
     _list = np.empty((0, num), int)
-
     for __x in _x:
         n = np.add.reduce(np_utils.to_categorical(np.array(__x) - 1, num_classes=num))
         n = np.array([n])
