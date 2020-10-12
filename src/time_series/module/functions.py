@@ -61,10 +61,17 @@ def write_csv(test_x, test_y, train_x, train_y):
     np.savetxt('files/train_y_make.csv', train_y, delimiter=',', fmt='%d')
 
 
-def read_csv():
-    _test_x = np.genfromtxt('../files/test_x_make.csv', skip_header=1, delimiter=',', dtype='int')
-    _test_y = np.genfromtxt('../files/test_y_make.csv', skip_header=1, delimiter=',', dtype='int')
-    _train_x = np.genfromtxt('../files/train_x_make.csv', skip_header=1, delimiter=',', dtype='int')
-    _train_y = np.genfromtxt('../files/train_y_make.csv', skip_header=1, delimiter=',', dtype='int')
+def write_csv_origin(test_x, test_y, train_x, train_y):
+    np.savetxt('files/test_x_origin_make.csv', test_x, delimiter=',', fmt='%d')
+    np.savetxt('files/test_y_origin_make.csv', test_y, delimiter=',', fmt='%d')
+    np.savetxt('files/train_x_origin_make.csv', train_x, delimiter=',', fmt='%d')
+    np.savetxt('files/train_y_origin_make.csv', train_y, delimiter=',', fmt='%d')
+
+
+def read_csv(execute_path='../'):
+    _test_x = np.genfromtxt(execute_path + 'files/test_x_make.csv', skip_header=1, delimiter=',', dtype='int')
+    _test_y = np.genfromtxt(execute_path + 'files/test_y_make.csv', skip_header=1, delimiter=',', dtype='int')
+    _train_x = np.genfromtxt(execute_path + 'files/train_x_make.csv', skip_header=1, delimiter=',', dtype='int')
+    _train_y = np.genfromtxt(execute_path + 'files/train_y_make.csv', skip_header=1, delimiter=',', dtype='int')
 
     return _test_x, _test_y, _train_x, _train_y
